@@ -3,9 +3,11 @@ from typing import Literal
 
 import joblib
 import pandas as pd
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, Field
+
+from retrain import retrain_model
 
 MODEL_PATH = Path(__file__).parent / "best_model.pkl"
 
@@ -89,3 +91,19 @@ def predict(data: PriceInput):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Prediction failed: {e}")
     return {"predicted_price_usd_per_kg": round(float(price), 2)}
+
+
+@app.post("/retrain")
+def retrain(file: UploadFile = File(..., description="CSV with the same columns as the WFP Sudan food prices data")):
+    global model
+    if not file.filename.endswith(".csv"):
+        raise HTTPException(status_code=400, detail="Please upload a .csv file.")
+    try:
+        new_df = pd.read_csv(file.file)
+        new_model, summary = retrain_model(new_df)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Retraining failed: {e}")
+    model = new_model  # /predict uses the new model from now on
+    return {"message": "Model retrained on the original data plus the new rows.", **summary}
