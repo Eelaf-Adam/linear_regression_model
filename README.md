@@ -1,9 +1,11 @@
 # SouqCast: Predicting Wartime Food Prices in Sudanese Markets
 
 ## Mission and problem
-My mission is to build localized, low-resource AI that addresses Africa's pressing structural challenges.
-Since the war began in April 2023, food prices in Sudan differ sharply between markets and months, which makes it hard for aid agencies to set fair cash-transfer amounts.
-SouqCast predicts the retail price of a food item (USD per kg) for a given market and month, so cash support can match real local prices.
+**My mission:** is to build localized, low-resource AI that addresses aid reach Sudanese families fairly during the war.
+
+**Problem:** Since the war began in April 2023, food prices in Sudan differ sharply between markets and months, which makes it hard for aid agencies to set fair cash-transfer amounts.
+
+**SouqCast:** predicts the retail price of a food item (USD per kg) for a given market and month, so cash support can match real local prices.
 
 ## Dataset
 WFP Sudan food prices, published by the World Food Programme on the Humanitarian Data Exchange (HDX):
@@ -46,7 +48,7 @@ The free Render plan sleeps after 15 minutes, so the first request can take up t
 ## Project structure
 ```
 linear_regression_model/
-├── README.md                        # this file
+├── README.md                        
 └── summative/
     ├── pyproject.toml               # Python packages for the notebook (uv)
     ├── uv.lock                      # exact package versions for the notebook
