@@ -95,6 +95,8 @@ def predict(data: PriceInput):
 
 @app.post("/retrain")
 def retrain(file: UploadFile = File(..., description="CSV with the same columns as the WFP Sudan food prices data")):
+    """Upload new WFP price data as CSV. The upload alone retrains the model on the original
+    data plus the new rows, and /predict uses the updated model straight away."""
     global model
     if not file.filename.endswith(".csv"):
         raise HTTPException(status_code=400, detail="Please upload a .csv file.")
