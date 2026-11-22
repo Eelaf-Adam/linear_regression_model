@@ -22,7 +22,7 @@ https://sudan-food-price-api.onrender.com/docs
 The free Render plan sleeps after 15 minutes, so the first request can take up to a minute.
 
 ## Video demo
-[YouTube link: to be added]
+[YouTube link: https://youtu.be/SVg712QUOAs]
 
 ## Run the mobile app
 1. Install Flutter (3.x) and connect an Android phone with USB debugging on, or start an Android emulator.
